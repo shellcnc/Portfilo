@@ -3,58 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Samrat Pokhrel</title>
+  <title>samrat.dev — Security & Infra Work</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    /* Fonts pulled directly to match the pixelated-digital typography seen in the photo */
+    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;700&family=Silkscreen&display=swap');
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Share Tech Mono', monospace;
     }
+
     body {
-      background-color: #000;
-      overflow: hidden;
-      height: 100vh;
+      background-color: #120f19; /* Subtle matrix dotted layer pattern mapped over the dark purple viewport background */
+      background-image: radial-gradient(#1e1929 1px, transparent 1px);
+      background-size: 16px 16px;
+      color: #bcaec7;
+      font-family: 'M PLUS 1 Code', monospace;
+      font-size: 13px;
+      padding: 30px 10px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      color: #ff2b2b;
-      text-align: center;
-      padding: 20px;
     }
-    h1 {
-      font-size: 2em;
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .info-box, .about-box {
-      background-color: rgba(0, 0, 0, 0.7);
-      border: 2px solid #ff2b2b;
-      padding: 20px;
-      font-size: 1em;
-      line-height: 1.5;
-      box-shadow: 0 0 20px #ff0000;
-      margin-bottom: 20px;
-      max-width: 500px;
-      width: 100%;
-      z-index: 10;
-    }
-    .about-box img {
-      display: block;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 10px auto;
-      border: 2px solid #ff2b2b;
-    }
-    a {
-      color: #ff2b2b;
-      text-decoration: underline;
-    }
+
+    /* System background canvas integration */
     canvas {
       position: fixed;
       top: 0;
@@ -64,32 +38,473 @@
       z-index: 1;
       pointer-events: none;
     }
+
+    .container {
+      max-width: 980px;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Top Grid Navbar Panel */
+    .navbar {
+      background: #1a1625;
+      border: 1px solid #2d263b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 4px;
+    }
+
+    .nav-brand {
+      font-family: 'Silkscreen', cursive;
+      font-size: 16px;
+      color: #fff;
+      text-decoration: none;
+      background: #251f35;
+      padding: 6px 14px;
+      border: 1px solid #3d3356;
+      border-radius: 3px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-menu a {
+      color: #8c7b9e;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-menu a.active, .nav-menu a:hover {
+      color: #fff;
+      border-bottom: 2px solid #c3a6ff;
+      padding-bottom: 2px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      font-family: 'M PLUS 1 Code', monospace;
+      font-size: 11px;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 3px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .btn-outline {
+      border: 1px solid #423759;
+      color: #a594ba;
+      background: rgba(35, 30, 48, 0.4);
+    }
+
+    .btn-solid {
+      background: #c3a6ff;
+      color: #120f19;
+      border: 1px solid #c3a6ff;
+      box-shadow: 0 0 10px rgba(195, 166, 255, 0.3);
+    }
+
+    /* Grid Alignment Segments */
+    .grid-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: #1a1625;
+      border: 1px solid #2d263b;
+      border-radius: 4px;
+      padding: 24px;
+    }
+
+    /* Main Bio Header Card Elements */
+    .hero-card {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .avatar-box {
+      width: 100px;
+      height: 100px;
+      background: #231e30;
+      border: 2px solid #423759;
+      border-radius: 4px;
+      padding: 4px;
+      flex-shrink: 0;
+    }
+
+    .avatar-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    .hero-content h1 {
+      font-family: 'Silkscreen', cursive;
+      font-size: 26px;
+      color: #c3a6ff;
+      margin-bottom: 8px;
+    }
+
+    .hero-content p {
+      color: #8c7b9e;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .inline-nav-links a {
+      color: #c3a6ff;
+      text-decoration: underline;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+
+    /* Status Card Alignment */
+    .status-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .status-profile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2d263b;
+      padding-bottom: 12px;
+    }
+
+    .status-meta h4 {
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .status-meta span {
+      color: #645577;
+      font-size: 11px;
+    }
+
+    .online-indicator {
+      width: 6px;
+      height: 6px;
+      background: #50fa7b;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #50fa7b;
+    }
+
+    .stats-tray {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .stat-node h2 {
+      font-family: 'M PLUS 1 Code', monospace;
+      color: #c3a6ff;
+      font-size: 20px;
+    }
+
+    .stat-node p {
+      font-size: 10px;
+      color: #645577;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Middle Row Box Subtitle Styling */
+    .card-label {
+      font-family: 'Silkscreen', cursive;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #c3a6ff;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .intro-card p {
+      line-height: 1.7;
+      margin-bottom: 16px;
+      color: #bcaec7;
+    }
+
+    .intro-card strong {
+      color: #fff;
+    }
+
+    .purple-badge {
+      background: #2a203d;
+      color: #c3a6ff;
+      border: 1px solid #443263;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .live-badge {
+      background: rgba(80, 250, 123, 0.1);
+      color: #50fa7b;
+      border: 1px solid rgba(80, 250, 123, 0.3);
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    /* Testimonial Panel Box Blocks */
+    .testimonial-card {
+      position: relative;
+    }
+
+    .testimonial-pagination {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      color: #645577;
+      font-size: 11px;
+    }
+
+    .testimonial-quote {
+      color: #8c7b9e;
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 2px solid #423759;
+      padding-left: 14px;
+      margin-top: 15px;
+    }
+
+    .testimonial-author {
+      margin-top: 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #c3a6ff;
+      font-weight: bold;
+      padding-left: 16px;
+    }
+
+    /* Tech Stack Label & Item Badges Tray */
+    .tech-tray-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .tech-context {
+      font-size: 11px;
+      color: #645577;
+    }
+
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-badge {
+      background: #1d1929;
+      border: 1px solid #2d263b;
+      padding: 6px 12px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .tech-badge span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    /* Bottom Structural Footer Elements */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5px;
+      font-size: 11px;
+      color: #554a63;
+      border-top: 1px solid #1e1929;
+      margin-top: 10px;
+    }
+
+    .footer-links a {
+      color: #554a63;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+
+    .footer-links a:hover {
+      color: #c3a6ff;
+    }
+
+    /* Dynamic Mobile Refitting Rules */
+    @media (max-width: 768px) {
+      .grid-row {
+        grid-template-columns: 1fr;
+      }
+      .hero-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Dynamic system ambient lighting node background -->
   <canvas id="thunder"></canvas>
   
-  <h1>Hello, I'm Samrat Pokhrel<br>Learning Coding Only from Butwal</h1>
+  <div class="container">
+    
+    <!-- Top System Frame Bar Navigation -->
+    <header class="navbar">
+      <a href="#" class="nav-brand">samrat.dev</a>
+      <nav class="nav-menu">
+        <a href="#" class="active">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">PROJECTS</a>
+        <a href="#">CONTACT</a>
+      </nav>
+      <div class="nav-buttons">
+        <a href="https://github.com" target="_blank" class="btn btn-outline">OPEN GITHUB</a>
+        <a href="mailto:samratpokhrel80@gmail.com" class="btn btn-solid">SAY HI CONTACT</a>
+      </div>
+    </header>
 
-  <div class="about-box">
-    <img src="https://sabimages.com/wp-content/uploads/2024/08/Anime-boy-dp20.jpg" alt="Samrat Pokhrel Profile Picture">
-    <h2>About Me</h2>
-    <p>Hello! I am <strong>Samrat Pokhrel</strong> from Butwal. I am a <strong>class 9 student</strong> currently studying at <strong>Shree Shanti</strong>. I am learning coding and exploring technology.</p>
-  </div>
+    <!-- Top Block Component Row -->
+    <div class="grid-row">
+      <!-- Main Intro Console Area -->
+      <section class="card hero-card">
+        <div class="avatar-box">
+          <!-- Proxy wrapped anime display asset safely executing -->
+          <img src="https://images.weserv.nl/?url=sabimages.com/wp-content/uploads/2024/08/Anime-boy-dp20.jpg" alt="Samrat Pokhrel Digital Avatar">
+        </div>
+        <div class="hero-content">
+          <h1>hi, i'm samrat!</h1>
+          <p>student developer, deployment configuration architect, and networking explorer. welcome in — grab a coffee. ☕</p>
+          <div class="inline-nav-links">
+            <a href="#">about me</a>
+            <a href="#">my projects</a>
+            <a href="#">reach out</a>
+          </div>
+        </div>
+      </section>
 
-  <div class="info-box">
-    <h2>My Projects & Contact</h2>
-    <p><strong>Pterodactyl Panel & Wings Deployment and Configuration</strong></p>
-    <p><strong>XDP Protection:</strong> TCP, UDP, Application Layer, etc.</p>
-    <p>Contact: <a href="mailto:samratpokhrel80@gmail.com">samratpokhrel80@gmail.com</a></p>
+      <!-- Profile Matrix Operational Status Panel -->
+      <aside class="card status-card">
+        <div class="status-profile">
+          <div class="status-meta">
+            <h4>SAMRAT.DEV // S.P.</h4>
+            <span>currently operational</span>
+          </div>
+          <div class="online-indicator"></div>
+        </div>
+        <div class="stats-tray">
+          <div class="stat-node">
+            <h2>Cls 9</h2>
+            <p>EDUCATION</p>
+          </div>
+          <div class="stat-node">
+            <h2>2+</h2>
+            <p>PROJECTS</p>
+          </div>
+          <div class="stat-node">
+            <h2>24/7</h2>
+            <p>UPTIME</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Secondary Segment Row Block -->
+    <div class="grid-row">
+      <!-- Deep Context Introduction Card Box -->
+      <main class="card intro-card">
+        <div class="card-label">QUICK INTRO //</div>
+        <p>Hi, my name is samrat, and i love building and analyzing stable infrastructure. I work configuring kernel-level parameters, isolated system deployment environments, and structural server architecture models engineered to protect digital framework integrity out of <strong>Butwal, Nepal</strong>.</p>
+        <p>Currently executing academic milestones as a class 9 student attending <strong>Shree Shanti</strong>, completely dedicating auxiliary cycles to breaking down and refining infrastructure parameters.</p>
+        <p>I focus directly on core background environments. Past configurations have shielded over <span class="purple-badge">2.50 TB</span> of custom protocol communication vectors across structural backend modules <span class="live-badge">LIVE</span>.</p>
+      </main>
+
+      <!-- Interactive Core Experience/Project Showcase Panel -->
+      <section class="card testimonial-card">
+        <div class="card-label">PROJECT LOGS //</div>
+        <div class="testimonial-pagination">01 / 02</div>
+        
+        <div class="testimonial-quote">
+          "Configured modular deployment node ecosystems. Implemented granular containment systems protecting active instances natively under variable scale stresses."
+        </div>
+        <div class="testimonial-author">— PTERODACTYL PANEL & WINGS SETUP</div>
+
+        <div class="testimonial-quote" style="margin-top: 20px;">
+          "Engineered layered system firewalls dealing natively with malicious routing stress points across data paths."
+        </div>
+        <div class="testimonial-author">— XDP PROTOCOL INTERCEPTORS</div>
+      </section>
+    </div>
+
+    <!-- Tech Skillsets Matrix Layout Tray -->
+    <section class="card">
+      <div class="tech-tray-title">
+        <div class="card-label" style="margin-bottom: 0;">TECH & TOOLS //</div>
+        <div class="tech-context">// CORE DRIVERS</div>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-badge"><span style="background: #f1e05a;"></span> JavaScript</div>
+        <div class="tech-badge"><span style="background: #e34c26;"></span> HTML5 / CSS3</div>
+        <div class="tech-badge"><span style="background: #3178c6;"></span> TypeScript</div>
+        <div class="tech-badge"><span style="background: #3572A5;"></span> Python</div>
+        <div class="tech-badge"><span style="background: #00add8;"></span> Go / XDP</div>
+        <div class="tech-badge"><span style="background: #384d54;"></span> Docker Virtualization</div>
+        <div class="tech-badge"><span style="background: #41b883;"></span> Linux Systems</div>
+        <div class="tech-badge"><span style="background: #009688;"></span> Pterodactyl Virtualization</div>
+      </div>
+    </section>
+
+    <!-- Base Frame Copyright Terminal Footer Section -->
+    <footer class="footer">
+      <div>© 2026 samrat.dev — engineering things so they don't fall over.</div>
+      <div class="footer-links">
+        <a href="#">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">PROJECTS</a>
+        <a href="#">CONTACT</a>
+      </div>
+    </footer>
+
   </div>
 
   <script>
-    // Red Thunderstorm background
+    // Subdued Cyberpunk Neon Purple Lightning Matrix Background Engine
     const canvas = document.getElementById('thunder');
     const ctx = canvas.getContext('2d');
     let w, h;
+    
     function resize() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
@@ -98,7 +513,7 @@
     resize();
 
     const bolts = [];
-    const numBolts = 40;
+    const numBolts = 20;
 
     class Bolt {
       constructor() {
@@ -107,9 +522,9 @@
       reset() {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        this.len = Math.random() * 80 + 20;
+        this.len = Math.random() * 50 + 15;
         this.angle = Math.random() * Math.PI * 2;
-        this.life = Math.random() * 15 + 10;
+        this.life = Math.random() * 25 + 15;
       }
       update() {
         this.life--;
@@ -119,10 +534,10 @@
         const x2 = this.x + Math.cos(this.angle) * this.len;
         const y2 = this.y + Math.sin(this.angle) * this.len;
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(255,0,0,${Math.random() * 0.8 + 0.2})`;
-        ctx.lineWidth = Math.random() * 2 + 0.5;
-        ctx.shadowBlur = Math.random() * 15 + 5;
-        ctx.shadowColor = 'red';
+        ctx.strokeStyle = `rgba(195, 166, 255, ${Math.random() * 0.3 + 0.05})`;
+        ctx.lineWidth = Math.random() * 1.2 + 0.4;
+        ctx.shadowBlur = Math.random() * 8 + 1;
+        ctx.shadowColor = '#c3a6ff';
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(x2, y2);
         ctx.stroke();
@@ -132,14 +547,14 @@
     for (let i = 0; i < numBolts; i++) bolts.push(new Bolt());
 
     function animate() {
-      ctx.fillStyle = 'rgba(0,0,0,0.2)';
+      ctx.fillStyle = 'rgba(18, 15, 25, 0.25)'; // Matrix matching fade layer
       ctx.fillRect(0, 0, w, h);
       bolts.forEach(b => {
         b.update();
         b.draw();
       });
-      if (Math.random() < 0.05) {
-        ctx.fillStyle = 'rgba(255,0,0,0.08)';
+      if (Math.random() < 0.02) {
+        ctx.fillStyle = 'rgba(195, 166, 255, 0.02)';
         ctx.fillRect(0, 0, w, h);
       }
       requestAnimationFrame(animate);
